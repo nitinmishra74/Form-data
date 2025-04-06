@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice</title>
+    <link rel="stylesheet" href="style.css" >
+</head>
+<body>
+   <div class="main">
+       <div class="container">
+           <form id="form">
+               <h1>Student Data</h1>
+               <div>
+                   <label for="name">Enter Name:</label>
+                   <input type="text" name="name" id="name" required>
+               </div>
+               <div>
+                   <label for="email">Enter Email:</label>
+                   <input type="email" name="email" id="email" required>
+               </div>
+               <button type="submit">Submit</button>
+           </form>
+           <script>
+            document.getElementById("form").addEventListener("submit", async(event)=>{
+                event.preventDefault();//this will select the form object or data
+                  const formData = new FormData(event.target);
+                  const name = formData.get("name");
+                  const email = formData.get("email");
+
+                  try {
+                    const response = await fetch(
+                        '/submit', {
+                            method:'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body : JSON.stringify({name,email})
+                        }
+                    );
+                    const data = await response.json();
+                    if(response.ok){
+                        alert('form submitted succefully');
+                        event.target.reset();
+                    }else {
+                        alert('error');
+                    }
+                    
+                } catch (error) {
+                    console.error("Error:", error);
+                }
+                })
+                
+        
+           </script>
+       </div>
+   </div>
+</body>
+</html>
