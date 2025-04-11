@@ -4,7 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { appendFile } from 'fs/promises';
 
-const PORT = 2000;
+const PORT = process.env.PORT || 2000;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -62,6 +62,6 @@ const server = createServer((req,res)=>{
 
 
 
-server.listen(PORT , ()=>{
-    console.log(`Server started at port ${PORT}`);
-})
+    server.listen(PORT, '0.0.0.0', () => {  
+      console.log(`Server started at port ${PORT}`);
+    });
